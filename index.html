@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top" />
+  </head>
+  <?!= include("css.html") ?>
+  <body>
+    <div id="app">
+      <div class="app-header <?= status === rejected ? 'red-bg' : '' ?>">
+        <h1><?= title ?></h1>
+      </div>
+      <? if (task) { ?>
+      <div class="app-content">
+        <div class="left">
+          <h2 class="section">Solicitud de aprobación</h2>
+          <div class="section">
+            <ul class="list">
+              <? task.forEach( item =>
+              { ?>
+              <li>
+                <label><?= item.label ?></label>
+                <div
+                  class="<?= item.value === pending ? 'yellow-text' : item.value === approved ? 'green-text' : item.value === rejected ? 'red-text' : '' ?>"
+                >
+                  <?= item.value ?>
+                </div>
+              </li>
+              <? }) ?>
+            </ul>
+          </div>
+        </div>
+
+        <div class="middle">
+          <h2 class="section">Encargados</h2>
+          <div class="section">
+            <ul class="list">
+              <? approvers.forEach((item, i) =>
+              { ?>
+              <li>
+                <label><?= item.name + "(" + item.title + ")" ?></label>
+                <div
+                  class="<?= item.status === pending ? 'yellow-text' : item.status === approved ? 'green-text' : item.status === rejected ? 'red-text' : '' ?>"
+                >
+                  <?= item.status ? item.status : 'Waiting' ?>
+                </div>
+              </li>
+              <? }) ?>
+            </ul>
+          </div>
+        </div>
+
+        <div class="right">
+          <h2 class="section">Encargado en progreso</h2>
+          <div class="section">
+            <ul class="list">
+              <li>
+                <label>Nombre</label>
+                <div><?= approver.name?></div>
+              </li>
+              <li>
+                <label>Titulo</label>
+                <div><?= approver.title?></div>
+              </li>
+              <li>
+                <label>Email</label>
+                <div><?= approver.email?></div>
+              </li>
+              <li>
+                <label>Estado</label>
+                <div
+                  class="<?= approver.status === pending ? 'yellow-text' : approver.status === approved ? 'green-text' : approver.status === rejected ? 'red-text' : '' ?>"
+                >
+                  <?= approver.status ? approver.status : 'Waiting' ?>
+                </div>
+              </li>
+              <? if (approver.status !== "Pending") { ?>
+              <? if (approver.comments) { ?>
+              <li>
+                <label>Comentarios</label>
+                <div><?= approver.comments ?></div>
+              </li>
+              <? } ?>
+              <? if (approver.timestamp) { ?>
+              <li>
+                <label>Fecha</label>
+                <div><?= new Date(approver.timestamp).toLocaleString() ?></div>
+              </li>
+              <? } ?>
+              <? } ?>
+            </ul>
+          </div>
+
+          <? if (approver.status === "Pending") { ?>
+          <form data="<?= approver.taskId ?>" url="<?= url ?>">
+            <label for="comments">Comentarios (opcional)</label>
+            <textarea id="comments" rows="4"></textarea>
+            <div class="button-set section">
+              <button id="approve" class="button green-bg">Aprobar</button>
+              <button id="reject" class="button red-bg">Rechazar</button>
+            </div>
+            <div id="prompt-message"></div>
+          </form>
+          <? } ?>
+        </div>
+      </div>
+      <? } else { ?>
+      <div class="app-content">
+        <h2 class="red-text">No Record Found</h2>
+      </div>
+      <? } ?>
+    </div>
+    <?!= include("js.html") ?>
+  </body>
+</html>
