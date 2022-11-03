@@ -57,7 +57,7 @@ function App() {
   this.uidLength = 5;
   this.statusHeader = "_status";
   this.responseIdHeader = "_response_id";
-  this.emailHeader = "Email Address"; // no cambiar, recopila direccion pedida por formulario
+  this.emailHeader = "Dirección de correo electrónico"; // no cambiar, recopila direccion pedida por formulario
 
   this.pending = "Pending";
   this.approved = "Approved";
