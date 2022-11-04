@@ -14,6 +14,12 @@
 
 ## Implementación
 
+- Antes de implementar se deben modificar los correos a utilizar segun cada flujo.
+
+- En this.flowHeader = "Department", se debe reemplazar el `Department` por el titulo del campo que sera el seleccionable para el flujo de aprobaciones.
+
+- En this.sheetname = "Form Responses 1", se debe reemplazar `Form Responses 1` por el nombre que tenga el sheet en la esquina inferior izquierda el el sheet. (comunmente es Respuestas de formulario 1)
+
 - Se clickea en el boton en la esquina superior derecha que dice `Implementar`, se presiona en nueva implementación, se debe seleccionar en la tuerca de configuración `Aplicación Web`, luego se le asigna una descripción y se le da a implementar.
 
 - Se debe copiar la URL de aplicación web y pegar en el archivo app.gs en `this.url` que dice `PONER URL LUEGO DE IMPLEMENTAR AQUÍ`
