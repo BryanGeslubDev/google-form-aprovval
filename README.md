@@ -1,6 +1,6 @@
 # google-form-aprovval
 
-##Creación
+## Creación
 
 - Se crea un formulario en google drive y luego se presiona en los 3 puntos y se clickea en el botón Editor de secuencias de comandos.
 
@@ -12,7 +12,7 @@
 
 - Una vez realizado los pasos anteriores, en el archivo app.gs se deben editar los correos, nombres y cargos correspondientes lo que sería un flujo de aprobaciones según la opción que el usuario elija en el formulario.
 
-##Implementación
+## Implementación
 
 - Se clickea en el boton en la esquina superior derecha que dice `Implementar`, se presiona en nueva implementación, se debe seleccionar en la tuerca de configuración `Aplicación Web`, luego se le asigna una descripción y se le da a implementar.
 
