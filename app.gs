@@ -1,45 +1,40 @@
 // flujo de aprobaciones, pueden ir varios correos
 const FLOWS = {
   defaultFlow: [
-    //EXAMPLES
+    //ejemplos
     {
-      email: "example@example.cl",
+      email: "exame@example.cl",
       name: "Example",
       title: "Jefe",
     },
     {
-      email: "example2@example.cl",
+      email: "exame@example.cl",
       name: "Example 2",
       title: "Sub-Jefe",
     },
   ],
-  RRHH: [
+  "exampleFlow 1": [
     {
-      email: "example3@example.cl",
+      email: "exame@example.cl",
       name: "Example informatica",
       title: "Developer 1",
     },
     {
-      email: "example4@example.cl",
+      email: "exame@example.cl",
       name: "Example informatica",
       title: "Developer 2",
     },
   ],
-  Contabilidad: [
+  "ExampleFlow 2": [
     {
-      email: "example5@example.cl",
-      name: "Example contabilidad",
-      title: "Developer 5",
+      email: "exame@example.cl",
+      name: "Example informatica",
+      title: "Developer 1",
     },
     {
-      email: "example6@example.cl",
-      name: "Example contabilidad",
-      title: "Developer 6",
-    },
-    {
-      email: "example7@example.cl",
-      name: "Example contabilidad",
-      title: "Developer 7",
+      email: "exame@example.cl",
+      name: "Example informatica",
+      title: "Developer 2",
     },
   ],
 };
@@ -47,17 +42,17 @@ const FLOWS = {
 function App() {
   this.form = FormApp.getActiveForm();
   this.formUrl = this.form.getPublishedUrl();
-  this.url = "PONER URL LUEGO DE IMPLEMENTAR AQUÍ"; // url de implementación
+  this.url = "PONER URL DE IMPLEMENTACIÓN AQUÍ"; // url de implementación
   this.title = this.form.getTitle();
   this.desription = this.form.getDescription();
-  this.sheetname = "Form Responses 1";
-  this.flowHeader = "Department"; // IMPORTANT - key field for your flows
+  this.sheetname = "Respuestas de formulario 1"; //aquí va el nombre del sheet
+  this.flowHeader = "Gerencia"; // IMPORTANTE - aqui va el nombre del campo que se guiara el flujo
   this.uidHeader = "_uid";
   this.uidPrefix = "UID-";
   this.uidLength = 5;
   this.statusHeader = "_status";
   this.responseIdHeader = "_response_id";
-  this.emailHeader = "Dirección de correo electrónico"; // no cambiar, recopila direccion pedida por formulario
+  this.emailHeader = "Dirección de correo electrónico"; // en caso de error, reemplazar por Email Address
 
   this.pending = "Pending";
   this.approved = "Approved";
@@ -209,7 +204,7 @@ function App() {
   this.sendNotification = (taskId) => {
     const { email, responseId, status, task, approvers } =
       this.getTaskById(taskId);
-    console.log({ email, status, task, approvers });
+    console.log("aqui va el correoooooo", { email, status, task, approvers });
     const template = HtmlService.createTemplateFromFile(
       "notification_email.html"
     );
