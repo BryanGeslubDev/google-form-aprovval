@@ -193,7 +193,7 @@ function App() {
     template.pending = this.pending;
     template.waiting = this.waiting;
 
-    const subject = "Approval Required - " + this.title;
+    const subject = "Revisión requerida - " + this.title;
 
     const options = {
       htmlBody: template.evaluate().getContent(),
