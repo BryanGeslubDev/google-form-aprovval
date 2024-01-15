@@ -228,7 +228,45 @@ function App() {
     GmailApp.sendEmail(email, subject, "", options);
   };
 
-  // add addtional data to form response when update
+  function onEdit(e) {
+    const range = e.range;
+    const sheet = range.getSheet();
+    const column = range.getColumn();
+    const headers = sheet
+      .getRange(1, 1, 1, sheet.getLastColumn())
+      .getValues()[0];
+
+    const responseColumn = headers.indexOf("_status") + 1;
+
+    if (column === responseColumn) {
+      const responseId = sheet
+        .getRange(range.getRow(), headers.indexOf("_response_id") + 1)
+        .getValue();
+
+      const taskId = getTaskIdByResponseId(responseId);
+
+      if (taskId) {
+        const app = new App();
+        const { task, approver, approvers } = app.getTaskById(taskId);
+        app.sendApproval({ task, approver, approvers });
+      }
+    }
+  }
+
+  function getTaskIdByResponseId(responseId) {
+    const values = new App().parsedValues();
+    const headers = values[0];
+    const responseIdIndex = headers.indexOf("_response_id") + 1;
+    const taskIdIndex = headers.indexOf("_approver_1") + 1;
+
+    const row = values.find((value) => value[responseIdIndex] === responseId);
+    if (row) {
+      return row[taskIdIndex];
+    }
+
+    return null;
+  }
+
   this.onFormSubmit = () => {
     const values = this.parsedValues();
     const headers = values[0];
