@@ -1,4 +1,3 @@
-// flujo de aprobaciones, pueden ir varios correos
 const FLOWS = {
   defaultFlow: [
     //ejemplos
@@ -42,11 +41,11 @@ const FLOWS = {
 function App() {
   this.form = FormApp.getActiveForm();
   this.formUrl = this.form.getPublishedUrl();
-  this.url = "PONER URL DE IMPLEMENTACIÓN AQUÍ"; // url de implementación
+  this.url = "URL_IMPLEMENTACIÓN_AQUÍ"; // url de implementación
   this.title = this.form.getTitle();
   this.desription = this.form.getDescription();
-  this.sheetname = "Respuestas de formulario 1"; //aquí va el nombre del sheet
-  this.flowHeader = "Gerencia"; // IMPORTANTE - aqui va el nombre del campo que se guiara el flujo
+  this.sheetname = "Form Responses 1B"; //aquí va el nombre del sheet
+  this.flowHeader = "1.1- Gerencia"; // IMPORTANTE - aqui va el nombre del campo que se guiara el flujo
   this.uidHeader = "_uid";
   this.uidPrefix = "UID-";
   this.uidLength = 5;
@@ -118,7 +117,10 @@ function App() {
             value: item,
           };
         });
-      email = record[headers.indexOf(this.emailHeader)];
+      email =
+        record[headers.indexOf("Email Address")] ||
+        record[headers.indexOf("Dirección de correo electrónico")];
+
       status = record[headers.indexOf(this.statusHeader)];
       responseId = record[headers.indexOf(this.responseIdHeader)];
       approver = record.find((item) => item.taskId === id);
@@ -208,6 +210,9 @@ function App() {
     const template = HtmlService.createTemplateFromFile(
       "notification_email.html"
     );
+    const { value: emailAddress } =
+      task.find((item) => item.label === "Email Address") || {};
+
     template.title = this.title;
     template.task = task;
     template.status = status;
@@ -225,7 +230,7 @@ function App() {
     const options = {
       htmlBody: template.evaluate().getContent(),
     };
-    GmailApp.sendEmail(email, subject, "", options);
+    GmailApp.sendEmail(emailAddress, subject, "", options);
   };
 
   function onEdit(e) {
