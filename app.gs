@@ -211,7 +211,11 @@ function App() {
       "notification_email.html"
     );
     const { value: emailAddress } =
-      task.find((item) => item.label === "Email Address") || {};
+      task.find(
+        (item) =>
+          item.label === "Email Address" ||
+          item.label === "Dirección de correo electrónico"
+      ) || {};
 
     template.title = this.title;
     template.task = task;
